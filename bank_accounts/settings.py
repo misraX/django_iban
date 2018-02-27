@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
     # internal apps
     'apps.core',
+    'apps.iban',
 ]
 
 MIDDLEWARE = [
@@ -113,12 +114,14 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-# Authorization
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_QUERY_EMAIL = True
 
 # Login redirection.
+LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
 # Site id
