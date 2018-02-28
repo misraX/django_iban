@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import HttpResponse
 from django.views.generic import (
     ListView, DetailView, DeleteView, UpdateView, CreateView
 )
 
-from apps.core.views import BaseLoginRequiredMixin
 from .models import IBANAccount
 
 
-class IBANBaseSingleObjectView(object):
+class IBANBaseSingleObjectView(LoginRequiredMixin):
     """
-    Handling the base configuration for generic views.
+    Extends `LoginRequiredMixin` and handling the base
+    configuration for generic views.
     """
     model = IBANAccount
     # use the active manager as the default manager.
     queryset = IBANAccount.is_active.all()
+    redirect_field_name = 'redirect_to'
     context_object_name = 'iban_account_item'
 
 
@@ -29,7 +31,7 @@ class IBANBaseSingleObjectUpdateCreateView(IBANBaseSingleObjectView):
     template_name = 'ibanaccount_form.html'
 
 
-class IBANListView(BaseLoginRequiredMixin, IBANBaseSingleObjectView, ListView):
+class IBANListView(IBANBaseSingleObjectView, ListView):
     """
     List all IBAN instances
     """
@@ -38,16 +40,16 @@ class IBANListView(BaseLoginRequiredMixin, IBANBaseSingleObjectView, ListView):
     template_name = 'ibanaccount_list.html'
 
 
-class IBANDetailView(BaseLoginRequiredMixin, IBANBaseSingleObjectView, DetailView):
+class IBANDetailView(IBANBaseSingleObjectView, DetailView):
     """
-    IBANAccount detail view.
+    `IBANAccount` detail view.
     """
     template_name = 'ibanaccount_detail.html'
 
 
-class IBANDeleteView(BaseLoginRequiredMixin, IBANBaseSingleObjectView, DeleteView):
+class IBANDeleteView(IBANBaseSingleObjectView, DeleteView):
     """
-    IBANAccount delete view.
+    `IBANAccount` delete view.
     """
     success_url = '/'
     template_name = 'ibanaccount_delete.html'
@@ -55,7 +57,7 @@ class IBANDeleteView(BaseLoginRequiredMixin, IBANBaseSingleObjectView, DeleteVie
     def dispatch(self, request, *args, **kwargs):
         """
         Preventing manipulations operations over the model
-        instance and allowing it only users who created it.
+        instance and allowing it only for users who created it.
         :param request: HttpRequest
         :param args:
         :param kwargs:
@@ -66,7 +68,7 @@ class IBANDeleteView(BaseLoginRequiredMixin, IBANBaseSingleObjectView, DeleteVie
         return super(IBANDeleteView, self).dispatch(request, *args, **kwargs)
 
 
-class IBANCreateView(BaseLoginRequiredMixin, IBANBaseSingleObjectUpdateCreateView, CreateView):
+class IBANCreateView(IBANBaseSingleObjectUpdateCreateView, CreateView):
 
     def form_valid(self, form):
         """
@@ -79,7 +81,7 @@ class IBANCreateView(BaseLoginRequiredMixin, IBANBaseSingleObjectUpdateCreateVie
         return super(IBANCreateView, self).form_valid(form)
 
 
-class IBANUpdateView(BaseLoginRequiredMixin, IBANBaseSingleObjectUpdateCreateView, UpdateView):
+class IBANUpdateView(IBANBaseSingleObjectUpdateCreateView, UpdateView):
 
     def form_valid(self, form):
         """
@@ -94,7 +96,7 @@ class IBANUpdateView(BaseLoginRequiredMixin, IBANBaseSingleObjectUpdateCreateVie
     def dispatch(self, request, *args, **kwargs):
         """
         Preventing manipulations operations over the model
-        instance and allowing it only users who created it.
+        instance and allowing it only for users who created it.
         :param request: HttpRequest
         :param args:
         :param kwargs:
