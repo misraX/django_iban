@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 from __future__ import unicode_literals, absolute_import
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,28 +8,32 @@ from django.views.generic import (
     ListView, DetailView, DeleteView, UpdateView, CreateView
 )
 
+from .forms import IBANAccountModelForm
 from .models import IBANAccount
 
 
 class IBANBaseSingleObjectView(LoginRequiredMixin):
     """
-    Extends `LoginRequiredMixin` and handling the base
-    configuration for generic views.
+    Extends `LoginRequiredMixin` to handle the base
+    configuration for generic List, Detail views.
     """
     model = IBANAccount
     # use the active manager as the default manager.
     queryset = IBANAccount.is_active.all()
-    redirect_field_name = 'redirect_to'
     context_object_name = 'iban_account_item'
+    redirect_field_name = 'redirect_to'
 
 
-class IBANBaseSingleObjectUpdateCreateView(IBANBaseSingleObjectView):
+class IBANBaseSingleObjectUpdateCreateView(LoginRequiredMixin):
     """
-    Extends `IBANBaseSingleObjectView` to handel form fields and
-    templates for Create and Update views.
+    Extends `LoginRequiredMixin` to handle the base
+    configuration for generic Update, Create views.
     """
-    fields = ['first_name', 'last_name', 'iban', ]
+    model = IBANAccount
+    context_object_name = 'iban_account_item'
     template_name = 'ibanaccount_form.html'
+    form_class = IBANAccountModelForm
+    redirect_field_name = 'redirect_to'
 
 
 class IBANListView(IBANBaseSingleObjectView, ListView):
@@ -63,9 +68,9 @@ class IBANDeleteView(IBANBaseSingleObjectView, DeleteView):
         :param kwargs:
         :return: HttpResponse
         """
+        super(IBANDeleteView, self).dispatch(request, *args, **kwargs)
         if self.get_object().created_by != self.request.user:
             return HttpResponse('Not authorized', status=403)
-        return super(IBANDeleteView, self).dispatch(request, *args, **kwargs)
 
 
 class IBANCreateView(IBANBaseSingleObjectUpdateCreateView, CreateView):
@@ -102,6 +107,6 @@ class IBANUpdateView(IBANBaseSingleObjectUpdateCreateView, UpdateView):
         :param kwargs:
         :return: HttpResponse
         """
+        super(IBANUpdateView, self).dispatch(request, *args, **kwargs)
         if self.get_object().created_by != self.request.user:
             return HttpResponse('Not authorized', status=403)
-        return super(IBANUpdateView, self).dispatch(request, *args, **kwargs)
