@@ -63,6 +63,7 @@ class IBANDeleteView(IBANBaseSingleObjectView, DeleteView):
         """
         Preventing manipulations operations over the model
         instance and allowing it only for users who created it.
+
         :param request: HttpRequest
         :param args:
         :param kwargs:
@@ -79,6 +80,7 @@ class IBANCreateView(IBANBaseSingleObjectUpdateCreateView, CreateView):
         """
         Auto assign the form model instance ForeignKey
         field `created_by` with the request.user.
+
         :param form: ModelForm
         :return: HttpResponseRedirect
         """
@@ -92,6 +94,7 @@ class IBANUpdateView(IBANBaseSingleObjectUpdateCreateView, UpdateView):
         """
         Auto assign the form model instance ForeignKey
         field `created_by` with the request.user.
+
         :param form: ModelForm
         :return: HttpResponseRedirect
         """
@@ -102,6 +105,7 @@ class IBANUpdateView(IBANBaseSingleObjectUpdateCreateView, UpdateView):
         """
         Preventing manipulations operations over the model
         instance and allowing it only for users who created it.
+
         :param request: HttpRequest
         :param args:
         :param kwargs:
