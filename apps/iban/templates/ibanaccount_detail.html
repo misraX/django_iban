@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+{% block title %}{{ iban_account_item.first_name }}, {{ iban_account_item.last_name }}{% endblock %}
+{% block content %}
+    <div class="row">
+        {% if iban_account_item %}
+            <div class="iban_box col-md-6">
+                {% include 'ibanaccount_box.html' %}
+            </div>
+        {% else %}
+            <p class="error col-md-12">No IBAN account found.</p>
+        {% endif %}
+    </div>
+{% endblock %}
