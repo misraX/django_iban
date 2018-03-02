@@ -64,9 +64,9 @@ pip install -r requirements/dev.txt
 
 `/iban/update/<pk>` iban UpdateView, Update of the requested <pk> instance.
 
-`iban/delete/<pk>` iban DeleteView, Delete of the requested <pk> instance.
+`/iban/delete/<pk>` iban DeleteView, Delete of the requested <pk> instance.
 
-`iban/add/` iban CreateView, Create a new IBANAccount instance.
+`/iban/add/` iban CreateView, Create a new IBANAccount instance.
 
 ### Docs:
 
