@@ -12,11 +12,12 @@
 
 `virtualenv -p /bin/python2 venv`
 
-4- Active the new virtuenv:
+4- Activate the new virtuenv:
 
 `source venv/bin/activate`
 
 5- Clone the repository as django_iban:
+
 `git clone git@github.com:misraX/django_iban.git django_iban`
 
 6- Move to django_iban:
