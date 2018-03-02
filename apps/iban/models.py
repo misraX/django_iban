@@ -33,15 +33,14 @@ class IBANAccount(AbstractBaseModel):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     iban = IBANField(verbose_name='IBAN', use_nordea_extensions=True)
 
-    objects = models.Manager()
-    is_active = ActiveManager()
+    objects = ActiveManager.as_manager()
 
     class Meta:
         ordering = ['created_at']
         verbose_name_plural = 'IBAN accounts'
 
     def __str__(self):
-        return '{first_name} {last_name}'.format(
+        return '{first_name}, {last_name}'.format(
             first_name=self.first_name, last_name=self.last_name
         )
 
