@@ -1,0 +1,53 @@
+.iban_box, .wrapper .menu {
+    margin: 0 0 10px 0;
+}
+
+.actions {
+    margin: 10px 0 0 0;
+}
+
+.actions .btn {
+    width: 80%;
+    padding: 10px;
+}
+
+.actions .col-md-6 {
+    padding: 0;
+}
+
+.add-iban,
+.wrapper .menu {
+    display: flex;
+}
+
+.wrapper .menu {
+    padding: 10px 0;
+    background: #e3e3e3;
+    justify-content: start;
+}
+
+.wrapper .menu ul.nav {
+    flex-grow: 5;
+}
+
+.add-iban {
+    flex-grow: 1;
+}
+
+.wrapper .nav-pills li,
+.add-iban {
+    padding: 10px;
+}
+
+.menu .nav-item {
+    line-height: 30px;
+}
+
+.add-iban .btn-danger {
+    flex: 5;
+}
+
+.add-iban .btn-success {
+    flex: 10;
+    margin-right: 10px;
+}

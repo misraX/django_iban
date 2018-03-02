@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+{% block head_title %}IBAN List{% endblock %}
+{% block extra_body_content %}
+    <div class="row">
+        {% for iban_account_item in iban_account_list %}
+            <div class="iban_box col-md-6">
+                {% include 'ibanaccount_box.html' %}
+            </div>
+        {% empty %}
+            <div class="col-md-12"><p class="error">No IBAN accounts found.</p></div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        {% if is_paginated %}
+            <nav>
+                <ul class="pager">
+                    {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                    {% endif %}
+                    {% if page_obj.has_previous %}
+                        <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+{% endblock %}

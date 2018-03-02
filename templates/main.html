@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}{% endblock %}
+{% block extra_head %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div class="container wrapper">
+        <nav class="menu">
+            <ul class="nav nav-pills">
+                <li role="presentation"><a class="nav-item" href="{% url 'iban_list' %}">Home</a></li>
+            </ul>
+            <div class="add-iban">
+                <a class="btn btn-success" href="{% url 'iban:iban_create' %}">Add IBAN</a>
+                <a class="btn btn-danger" href="{% url 'account_logout' %}">Sign Out</a></li>
+            </div>
+        </nav>
+        {% block extra_body_content %}{% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    {% block customjs %}{% endblock %}
+{% endblock %}

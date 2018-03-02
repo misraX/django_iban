@@ -1,0 +1,14 @@
+<p>First Name: {{ iban_account_item.first_name }}</p>
+<p>Last Name: {{ iban_account_item.last_name }}</p>
+<a href="{% url 'iban:iban_detail' iban_account_item.id %}">IBAN: {{ iban_account_item.iban }}</a>
+{% if request.user == iban_account_item.created_by %}
+    <div class="actions row">
+        {% with iban_account_item.id as id %}
+            <div class="col-md-6">
+                <a class="btn btn-primary" href="{% url 'iban:iban_update' id %}">Update</a>
+            </div>
+            <div class="col-md-6">
+                <a class="btn btn-danger" href="{% url 'iban:iban_delete' id %}">Delete</a>
+            </div>
+        {% endwith %}
+    </div>{% endif %}
