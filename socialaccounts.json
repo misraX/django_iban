@@ -1,0 +1,16 @@
+[
+{
+  "model": "socialaccount.socialapp",
+  "pk": 1,
+  "fields": {
+    "provider": "google",
+    "name": "iban",
+    "client_id": "33185686138-et7pfvraktdq7q909dbbbugs81sjo40d.apps.googleusercontent.com",
+    "secret": "AxleGow5yzJQD3qvON81PXEB",
+    "key": "",
+    "sites": [
+      1
+    ]
+  }
+}
+]
