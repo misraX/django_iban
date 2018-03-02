@@ -9,7 +9,7 @@ from .views import (
 
 urlpatterns = [
     # iban add url
-    url(r'add/$', IBANCreateView.as_view(), name='iban_add'),
+    url(r'add/$', IBANCreateView.as_view(), name='iban_create'),
     # iban detail url
     url(r'^(?P<pk>[0-9]+)/$', IBANDetailView.as_view(), name='iban_detail'),
     # iban update url

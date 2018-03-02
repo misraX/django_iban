@@ -60,6 +60,14 @@ apps.iban.views module
     :undoc-members:
     :show-inheritance:
 
+apps.iban.auth.mixins module
+----------------------
+
+.. automodule:: apps.iban.auth.mixins
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

@@ -16,6 +16,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+.project
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
 [._]s[a-v][a-z]
@@ -85,7 +86,6 @@ coverage.xml
 *.log
 static_storage/
 media/
-static/
 tmp/
 local_settings.py
 instance/

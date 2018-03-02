@@ -20,10 +20,10 @@ apps.core.models module
     :undoc-members:
     :show-inheritance:
 
-apps.core.tests module
+apps.core.tests.test\_models module
 ----------------------
 
-.. automodule:: apps.core.tests
+.. automodule:: apps.core.tests.test_models
     :members:
     :undoc-members:
     :show-inheritance:
