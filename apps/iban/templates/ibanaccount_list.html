@@ -1,13 +1,13 @@
 {% extends 'main.html' %}
-{% block title %}IBAN List{% endblock %}
-{% block content %}
+{% block head_title %}IBAN List{% endblock %}
+{% block extra_body_content %}
     <div class="row">
         {% for iban_account_item in iban_account_list %}
             <div class="iban_box col-md-6">
                 {% include 'ibanaccount_box.html' %}
             </div>
         {% empty %}
-            <p class="error">No IBAN accounts found.</p>
+            <div class="col-md-12"><p class="error">No IBAN accounts found.</p></div>
         {% endfor %}
     </div>
     <div class="row">

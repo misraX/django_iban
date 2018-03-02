@@ -1,48 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}{% endblock %}
+{% block extra_head %}
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .iban_box, .wrapper .menu {
-            margin: 0 0 10px 0;
-        }
-
-        .actions {
-            margin: 10px 0 0 0;
-        }
-
-        .actions .btn {
-            width: 80%;
-            padding: 10px;
-        }
-
-        .actions .col-md-6 {
-            padding: 0;
-        }
-
-        .wrapper .menu {
-            padding: 10px 0;
-            background: #e3e3e3;
-        }
-
-        .wrapper .nav-pills li {
-            padding: 10px;
-        }
-    </style>
-</head>
-<body>
-<div class="container wrapper">
-    <nav class="menu">
-        <ul class="nav nav-pills">
-            <li role="presentation"><a href="{% url 'iban_list' %}">Home</a></li>
-        </ul>
-    </nav>
-    {% block content %}{% endblock %}
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-{% block customjs %}{% endblock %}
-</body>
-</html>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div class="container wrapper">
+        <nav class="menu">
+            <ul class="nav nav-pills">
+                <li role="presentation"><a class="nav-item" href="{% url 'iban_list' %}">Home</a></li>
+            </ul>
+            <div class="add-iban">
+                <a class="btn btn-success" href="{% url 'iban:iban_create' %}">Add IBAN</a>
+                <a class="btn btn-danger" href="{% url 'account_logout' %}">Sign Out</a></li>
+            </div>
+        </nav>
+        {% block extra_body_content %}{% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    {% block customjs %}{% endblock %}
+{% endblock %}
