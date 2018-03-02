@@ -12,7 +12,10 @@ class IBANAccountModelForm(forms.ModelForm):
         :return: ValidationError or cleaned_data['iban']
         """
         iban = self.cleaned_data['iban']
-        if self.instance._meta.default_manager.filter(iban=iban).exists():
+        query_set = self.instance._meta.default_manager.filter(iban=iban)
+        if self.instance.pk is not None:
+            query_set = query_set.exclude(pk=self.instance.pk)
+        if query_set.exists():
             raise ValidationError('IBAN already exist')
         return iban
 
