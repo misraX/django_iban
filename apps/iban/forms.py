@@ -9,6 +9,7 @@ class IBANAccountModelForm(forms.ModelForm):
     def clean_iban(self):
         """
         Check if IBAN already exist in IBANAccount model.
+
         :return: ValidationError or cleaned_data['iban']
         """
         iban = self.cleaned_data['iban']
@@ -16,7 +17,7 @@ class IBANAccountModelForm(forms.ModelForm):
         if self.instance.pk is not None:
             query_set = query_set.exclude(pk=self.instance.pk)
         if query_set.exists():
-            raise ValidationError('IBAN already exist')
+            raise ValidationError('IBAN already exist', code='exists')
         return iban
 
     class Meta:

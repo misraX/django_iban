@@ -51,15 +51,6 @@ class IANBaseCreateUpdateView(IBANBaseViewConfiguration):
         form.instance.created_by = self.request.user
         return super(IANBaseCreateUpdateView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super(IANBaseCreateUpdateView, self).get_context_data(**kwargs)
-        context['title'] = None
-        if self.__class__.__name__ == 'IBANCreateView':
-            context['title'] = 'Create a new user'
-        elif self.__class__.__name__ == 'IBANUpdateView':
-            context['title'] = 'Update a user'
-        return context
-
 
 class IBANBaseCreateView(LoginRequiredMixin, IANBaseCreateUpdateView):
     """
@@ -104,7 +95,7 @@ class IBANCreateView(IBANBaseCreateView, CreateView):
     """
     Create a new IBANAccount instance.
     """
-    pass
+    template_name = 'ibanaccount_form_create.html'
 
 
 class IBANUpdateView(PreventManipulationAccessMixin, IANBaseCreateUpdateView, UpdateView):
@@ -115,4 +106,4 @@ class IBANUpdateView(PreventManipulationAccessMixin, IANBaseCreateUpdateView, Up
     users from performing any operation on the model instance, unless
     it's owned by the request.user.
     """
-    pass
+    template_name = 'ibanaccount_form_update.html'
