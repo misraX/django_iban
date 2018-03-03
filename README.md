@@ -10,7 +10,7 @@ Travis CI stats [![Build Status](https://travis-ci.org/misraX/django_iban.svg?br
 
 `cd iban`
 
-3- Create a python2 virtualenv:
+3- Create a new python2 virtualenv:
 
 `virtualenv venv -p /bin/python2`
 
@@ -127,4 +127,9 @@ Python versions passed the tests:
 2. The website is only allowed for logged in administrators...
 3. `apps.iban.auth.mixins.PreventManipulationAccessMixin` is a custom `AccessMixin` prevents manipulation operations.
 4. For a close code reference check [Code Reference](http://django-iban.readthedocs.io/en/latest/py-modindex.html "ReadTheDocs").
- 
+
+### Third party apps and Credits goes to:
+
+1. [Ligh BootStrap Dashboard] (https://github.com/creativetimofficial/light-bootstrap-dashboard "LightBoatStrapDashBoard").
+2. [django-allauth](https://github.com/pennersr/django-allauth "allauth") for social integrations.
+3. [django-localflavor](https://github.com/django/django-localflavor "localflavor") for Coutnry specific helpers.
