@@ -34,7 +34,7 @@ pip install -r requirements/base.txt
 ```
 
 ```
-# for test dependinces and base.
+# for test dependinces and development.
 pip install -r requirements/dev.txt
 ```
 
@@ -47,16 +47,35 @@ pip install -r requirements/dev.txt
    
 `./manage.py loaddata socialaccounts.json`
 
-10- Create superUser:
+10- Create superUser Just for the admin page use cases, **Its not required**:
 
 `./manage.py createsuperuser`
 
-11- Run Djano Development server:
+11- Run Djano Development server and open `localhost:8000` in your browser:
 
 `./manage.py runserver`
 
-12- Open localhost:8000 in your browser.
+12- Login Using your Google account.
 
+13- After login Google will redirect you to the home page `/`
+
+14- You can Add a new user account from the top or go to 'localhost:8000/iban/add/'
+
+15- After successfully adding a new user the page will redirect you to the instance page 'localhost:8000/<instance_id>'
+    
+16- Logout from the top right next to Add User IBAN.
+
+17- Login with another Google account.
+
+18 - You will redirect to the home page again '/'.
+
+19- You will see the instance that you previously created but no actions buttons Update nor Delete will
+    be available, it is only allowed for the owner of the instance.    
+
+20- Create a new instance using the same method in number 14, it will redirect you to the new instance page same as number 15.
+
+21- Go to the home page `localhoost:8000` or from the left menu `USERS ACCOUNT LIST` you will find your new instance in the table list, 
+    with the actions buttons Update and Delete.
 
 ### Available project URLs:
 
@@ -64,9 +83,9 @@ pip install -r requirements/dev.txt
 
 `/iban/<pk>` iban DetailView, Detail View of the requested <pk> instance.
 
-`/iban/update/<pk>` iban UpdateView, Update View of the requested <pk> instance.
+`/iban/update/<pk>` iban UpdateView, Update View of the requested <pk> instance. (only for the user who created the instance)
 
-`/iban/delete/<pk>` iban DeleteView, Delete View of the requested <pk> instance POST request only.
+`/iban/delete/<pk>` iban DeleteView, Delete View of the requested <pk> instance POST request only. (only for the user who created the instance)
 
 `/iban/add/` iban CreateView, Create a new IBANAccount instance.
 
@@ -75,10 +94,14 @@ pip install -r requirements/dev.txt
 [Code Reference](http://django-iban.readthedocs.io/en/latest/py-modindex.html "ReadTheDocs")
 
 
-### Tests:
+### Tests, TDD:
 
-Simply install `dev.txt` requirements and
+Travis Continuous Integration: [Travis CI](https://travis-ci.org/misraX/django_iban)
+
+Locally: Simply install `dev.txt` requirements and
 `./manage.py test`
+
+The project originally created with `python 2.7.14`
 
 Python versions passed the tests:
 
@@ -89,7 +112,6 @@ Python versions passed the tests:
     - "3.6"
     - "3.6-dev"
 
-The project originally created with `python 2.7.14`
 
 ### ScreenShots:
 
@@ -98,4 +120,5 @@ The project originally created with `python 2.7.14`
 ### Notes:
 
 1. Its important for Google auth to run the server using localhost:8000.
-2. Update and Delete views are only available if request.user is the same user who created the requested model instance. 
+2. The website is only allowed for logged in administrators...
+ 
