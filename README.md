@@ -80,6 +80,17 @@ pip install -r requirements/dev.txt
 Simply install `dev.txt` requirements and
 `./manage.py test`
 
+Python versions passed the tests:
+
+    - "2.7"
+    - "3.4"
+    - "3.5"
+    - "3.5-dev"
+    - "3.6"
+    - "3.6-dev"
+
+The project originally created with `python 2.7.14`
+
 ### ScreenShots:
 
 `./iban_screenshots`
