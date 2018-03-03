@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/misraX/django_iban.svg?branch=master)](https://travis-ci.org/misraX/django_iban)
+
 ## Installation:
 
 1- Create new directory:
@@ -60,11 +62,11 @@ pip install -r requirements/dev.txt
 
 `/` iban ListView, List all IBANAccount instances.
 
-`/iban/<pk>` iban DetailView, Detail of the requested <pk> instance.
+`/iban/<pk>` iban DetailView, Detail View of the requested <pk> instance.
 
-`/iban/update/<pk>` iban UpdateView, Update of the requested <pk> instance.
+`/iban/update/<pk>` iban UpdateView, Update View of the requested <pk> instance.
 
-`/iban/delete/<pk>` iban DeleteView, Delete of the requested <pk> instance.
+`/iban/delete/<pk>` iban DeleteView, Delete View of the requested <pk> instance POST request only.
 
 `/iban/add/` iban CreateView, Create a new IBANAccount instance.
 
