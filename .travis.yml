@@ -11,7 +11,7 @@ python:
   - "3.7-dev"  # 3.7 development branch
 
 install:
-  - pip install -r requirements/base.txt
+  - pip install -r requirements/dev.txt
   - pip install "coverage==4.5.1"
 
 # command to run tests
