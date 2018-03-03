@@ -125,4 +125,6 @@ Python versions passed the tests:
 
 1. Its important for Google auth to run the server using localhost:8000.
 2. The website is only allowed for logged in administrators...
+3. `apps.iban.auth.mixins.PreventManipulationAccessMixin` is a custom `AccessMixin` prevents manipulation operations.
+4. For a close code reference check [Code Reference](http://django-iban.readthedocs.io/en/latest/py-modindex.html "ReadTheDocs").
  
