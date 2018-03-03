@@ -1,13 +1,47 @@
 {% extends 'main.html' %}
-{% block head_title %}{{ iban_account_item.first_name }}, {{ iban_account_item.last_name }}{% endblock %}
-{% block extra_body_content %}
-    <div class="row">
-        {% if iban_account_item %}
-            <div class="iban_box col-md-6">
-                {% include 'ibanaccount_box.html' %}
-            </div>
-        {% else %}
-            <p class="error col-md-12">No IBAN account found.</p>
-        {% endif %}
+{% block head_title %}{{ iban_account_item.first_name }}, {{ iban_account_item.last_name }} | Account{% endblock %}
+{% block content_wrapper %}
+    <div class="col-md-8 col-lg-offset-2">
+        <div class="card">
+            <h4 class="form_title">{{ iban_account_item.first_name }} {{ iban_account_item.last_name }} | Account</h4>
+            {% if iban_account_item %}
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-hover table-striped detail_control">
+                        <thead>
+                        <tr>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>IBAN</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ iban_account_item.first_name }}</td>
+                            <td>{{ iban_account_item.last_name }}</td>
+                            <td>{{ iban_account_item.iban }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {% if request.user == iban_account_item.created_by %}
+
+                    {% with iban_account_item.id as id %}
+                        <ul class="nav actions_detail">
+                            <li class="update"><a class="btn btn-info btn-fill"
+                                                  href="{% url 'iban:iban_update' id %}">Update</a>
+                            </li>
+                            <li class="delete"> <form class="delete_action"
+                                              action="{% url 'iban:iban_delete' iban_account_item.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input class="delete btn btn-danger btn-fill" type="submit" value="Delete"/>
+                                        </form></li>
+                        </ul>
+                    {% endwith %}
+
+                {% endif %}
+            {% else %}
+                <p class="error col-md-12">No IBAN account found.</p>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

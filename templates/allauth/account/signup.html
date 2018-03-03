@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block css %}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="auth_register">
+            <h1 class="auth_authTitle">{% trans "Sign Up" %}</h1>
+            <div class="row auth_row-sm-offset-3 auth_loginOr">
+                <div class="col-xs-12 col-sm-6">
+                    <hr class="auth_hrOr">
+                </div>
+            </div>
+            <div class="row auth_row-sm-offset-3 auth_loginOr">
+                <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>
+                    .{% endblocktrans %}</p>
+            </div>
+            <div class="row auth_row-sm-offset-3 auth_loginOr">
+                <div class="col-xs-12 col-sm-6">
+                    <hr class="auth_hrOr">
+                </div>
+            </div>
+            <div class="row auth_row-sm-offset-3">
+                <div class="col-xs-12 col-sm-6">
+                    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                        {% csrf_token %}
+                        <ul class="form_group nav register">
+                            {{ form.as_ul }}
+                        </ul>
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                        {% endif %}
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

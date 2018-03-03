@@ -66,7 +66,8 @@ class IBANBaseViewTestCaseMixin(object):
         response = self.view.as_view(template_engine=self.template_name)(request, **self.url_kwarg)
         response.client = self.client
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.template_name[0], self.template_name)
+        if self.template_name:
+            self.assertEquals(response.template_name[0], self.template_name)
 
 
 class IBANListViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
@@ -143,7 +144,7 @@ class IBANDeleteViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
         self.url_kwarg = {'pk': self.iban_account.id}
         self.url = reverse('iban:iban_delete', kwargs=self.url_kwarg)
         self.redirect = '/accounts/login/?next={}'.format(self.url)
-        self.template_name = 'ibanaccount_delete.html'
+        self.template_name = None
 
     def test_login_required_delete_view(self):
         return self.login_required_iban_view()

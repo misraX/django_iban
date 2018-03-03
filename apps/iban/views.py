@@ -37,7 +37,6 @@ class IANBaseCreateUpdateView(IBANBaseViewConfiguration):
     combination with `LoginRequiredMixin` in IBANBaseCreateView, as
     Update View handles authorization differently.
     """
-    success_url = reverse_lazy('iban_list')
     template_name = 'ibanaccount_form.html'
     form_class = IBANAccountModelForm
 
@@ -51,6 +50,15 @@ class IANBaseCreateUpdateView(IBANBaseViewConfiguration):
         """
         form.instance.created_by = self.request.user
         return super(IANBaseCreateUpdateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(IANBaseCreateUpdateView, self).get_context_data(**kwargs)
+        context['title'] = None
+        if self.__class__.__name__ == 'IBANCreateView':
+            context['title'] = 'Create a new user'
+        elif self.__class__.__name__ == 'IBANUpdateView':
+            context['title'] = 'Update a user'
+        return context
 
 
 class IBANBaseCreateView(LoginRequiredMixin, IANBaseCreateUpdateView):
@@ -80,7 +88,22 @@ class IBANDetailView(IBANBaseListDetailView, DetailView):
     template_name = 'ibanaccount_detail.html'
 
 
+class IBANDeleteView(PreventManipulationAccessMixin, IBANBaseViewConfiguration, DeleteView):
+    """
+    Delete `IBANAccount` View, extends `PreventManipulationAccessMixin`
+    `IANBaseCreateUpdateView` and generic `DeleteView`, a restricted
+    View that prevent not only Anonymous users but also Authorized
+    users who did not create the model instance from performing any
+    operation on the model instance.
+    """
+    success_url = reverse_lazy('iban_list')
+    context_object_name = 'iban_account_item'
+
+
 class IBANCreateView(IBANBaseCreateView, CreateView):
+    """
+    Create a new IBANAccount instance.
+    """
     pass
 
 
@@ -93,15 +116,3 @@ class IBANUpdateView(PreventManipulationAccessMixin, IANBaseCreateUpdateView, Up
     it's owned by the request.user.
     """
     pass
-
-
-class IBANDeleteView(PreventManipulationAccessMixin, IBANBaseViewConfiguration, DeleteView):
-    """
-    Delete `IBANAccount` View, extends `PreventManipulationAccessMixin`
-    `IANBaseCreateUpdateView` and generic `DeleteView`, a restricted
-    View that prevent not only Anonymous users but also Authorized
-    users who did not create the model instance from performing any
-    operation on the model instance.
-    """
-    template_name = 'ibanaccount_delete.html'
-    success_url = reverse_lazy('iban_list')

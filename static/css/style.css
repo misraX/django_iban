@@ -1,23 +1,26 @@
+.country_code {
+    text-align: center;
+}
+
 .iban_box, .wrapper .menu {
     margin: 0 0 10px 0;
 }
 
-.actions {
-    margin: 10px 0 0 0;
-}
-
-.actions .btn {
-    width: 80%;
-    padding: 10px;
-}
-
-.actions .col-md-6 {
-    padding: 0;
-}
-
 .add-iban,
-.wrapper .menu {
+.wrapper .menu,
+.auth_remember_forget,
+.register li,
+ul.form_control.nav li,
+ul.form_control.nav,
+ul.detail_control.nav,
+ul.detail_control.nav li,
+td.actions,
+ul.nav.actions_detail {
     display: flex;
+}
+
+ul.detail_control.nav {
+    padding: 5em;
 }
 
 .wrapper .menu {
@@ -50,4 +53,212 @@
 .add-iban .btn-success {
     flex: 10;
     margin-right: 10px;
+}
+
+/************************
+        Login
+************************/
+@media (min-width: 768px) {
+    .auth_row-sm-offset-3 div:first-child[class*="col-"] {
+        margin-left: 25%;
+    }
+}
+
+.auth_login .auth_authTitle,
+.auth_register .auth_authTitle {
+    text-align: center;
+    line-height: 300%;
+}
+
+.auth_login .auth_socialButtons a {
+    color: white;
+/ / In yourUse @body-bg opacity: 0.9;
+}
+
+.auth_login .auth_socialButtons a:hover {
+    color: white;
+    opacity: 1;
+}
+
+.auth_login .auth_socialButtons .auth_btn-facebook {
+    background: #3b5998;
+}
+
+.auth_login .auth_socialButtons .auth_btn-twitter {
+    background: #00aced;
+}
+
+.auth_login .auth_socialButtons .auth_btn-google {
+    background: #c32f10;
+}
+
+.auth_login .auth_loginOr {
+    position: relative;
+    font-size: 1.5em;
+    color: #aaa;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.auth_login .auth_loginOr .auth_hrOr {
+    background-color: #cdcdcd;
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.auth_login .auth_loginOr .auth_spanOr {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -0.6em;
+    margin-left: -1.5em;
+    background-color: white;
+    width: 3em;
+    text-align: center;
+}
+
+a.btn.btn-lg.auth_btn-google {
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+}
+
+.help-block, ul.errorlist li {
+    color: #b33d3d;
+}
+
+.auth_group input,
+.register input {
+    font-size: 2rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+ul.nav.providers li a,
+.auth_group input,
+.register input {
+    padding: .5rem 1rem;
+}
+
+.form_instance .btn-wd,
+.actions_detail .btn {
+    padding: 1em;
+    border-top-left-radius: 0;
+    margin-top: 1em;
+    border-top-right-radius: 0;
+    font-size: 1.25em;
+}
+
+table.table.table-hover.table-striped.detail_control {
+    margin: 10rem 0;
+}
+
+.form_title {
+    margin: 0;
+    text-align: center;
+    padding: 1em;
+    background: #986cda;
+    color: #fff;
+
+}
+
+.btn.btn-lg.social_providers,
+ul.nav.providers li,
+ul.nav.providers li a,
+.auth_group input,
+.row.auth_row-sm-offset-3.auth_loginOr p,
+form.delete_action .delete {
+    width: 100%;
+}
+
+.row.auth_row-sm-offset-3.auth_loginOr p {
+    text-align: center;
+}
+
+ul.nav.providers li a,
+.auth_group input {
+    display: block;
+}
+
+ul.form_group.nav,
+.register li,
+ul.form_control.nav li,
+ul.form_control.nav,
+ul.detail_control.nav,
+ul.detail_control.nav li {
+    flex-direction: column;
+}
+
+ul.nav.actions_detail {
+    flex-direction: row;
+}
+
+ul.form_control.nav li {
+    padding: 1em;
+}
+
+ul.form_control.nav li > input {
+    padding: .75em;
+}
+
+.social_providers .socialaccount_provider.google {
+    background-color: #c32f10;
+}
+
+.auth_remember_forget,
+.register li,
+.signup .btn-block {
+    margin-top: 10px;
+}
+
+.errorlist {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.auth_remember_forget {
+    justify-content: space-between;
+}
+
+.auth_group, ul.errorlist li {
+    margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+    .auth_login .auth_forgotPwd {
+        text-align: right;
+        margin-top: 10px;
+    }
+}
+
+.card label {
+    line-height: 3em;
+}
+
+.actions .delete_action {
+    flex: 10;
+    margin-left: 10px;
+}
+
+.actions .update,
+ul.nav.actions_detail .update, ul.nav.actions_detail .delete {
+    flex: 5;
+}
+
+.actions_detail .btn {
+    border-radius: 0;
 }
