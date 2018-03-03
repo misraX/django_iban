@@ -16,7 +16,8 @@
 }
 
 .add-iban,
-.wrapper .menu {
+.wrapper .menu,
+.auth_remember_forget {
     display: flex;
 }
 
@@ -50,4 +51,130 @@
 .add-iban .btn-success {
     flex: 10;
     margin-right: 10px;
+}
+
+/************************
+        Login
+************************/
+@media (min-width: 768px) {
+    .auth_row-sm-offset-3 div:first-child[class*="col-"] {
+        margin-left: 25%;
+    }
+}
+
+.auth_login .auth_authTitle {
+    text-align: center;
+    line-height: 300%;
+}
+
+.auth_login .auth_socialButtons a {
+    color: white;
+/ / In yourUse @body-bg opacity: 0.9;
+}
+
+.auth_login .auth_socialButtons a:hover {
+    color: white;
+    opacity: 1;
+}
+
+.auth_login .auth_socialButtons .auth_btn-facebook {
+    background: #3b5998;
+}
+
+.auth_login .auth_socialButtons .auth_btn-twitter {
+    background: #00aced;
+}
+
+.auth_login .auth_socialButtons .auth_btn-google {
+    background: #c32f10;
+}
+
+.auth_login .auth_loginOr {
+    position: relative;
+    font-size: 1.5em;
+    color: #aaa;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.auth_login .auth_loginOr .auth_hrOr {
+    background-color: #cdcdcd;
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.auth_login .auth_loginOr .auth_spanOr {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -0.6em;
+    margin-left: -1.5em;
+    background-color: white;
+    width: 3em;
+    text-align: center;
+}
+
+a.btn.btn-lg.auth_btn-google {
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+}
+
+.auth_login .auth_loginForm .input-group.i {
+    width: 2em;
+}
+
+.auth_login .auth_loginForm .help-block {
+    color: red;
+}
+
+.input-group input {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+ul.nav.providers li a,
+.input-group input {
+    padding: .5rem 1rem;
+}
+
+.btn.btn-lg.social_providers,
+ul.nav.providers li,
+ul.nav.providers li a,
+.input-group input {
+    width: 100%;
+}
+
+ul.nav.providers li a,
+.input-group input {
+    display: block;
+}
+
+.social_providers .socialaccount_provider.google {
+    background-color: #c32f10;
+}
+
+.auth_remember_forget {
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+    .auth_login .auth_forgotPwd {
+        text-align: right;
+        margin-top: 10px;
+    }
 }

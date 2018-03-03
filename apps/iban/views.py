@@ -80,7 +80,22 @@ class IBANDetailView(IBANBaseListDetailView, DetailView):
     template_name = 'ibanaccount_detail.html'
 
 
+class IBANDeleteView(PreventManipulationAccessMixin, IBANBaseViewConfiguration, DeleteView):
+    """
+    Delete `IBANAccount` View, extends `PreventManipulationAccessMixin`
+    `IANBaseCreateUpdateView` and generic `DeleteView`, a restricted
+    View that prevent not only Anonymous users but also Authorized
+    users who did not create the model instance from performing any
+    operation on the model instance.
+    """
+    template_name = 'ibanaccount_delete.html'
+    success_url = reverse_lazy('iban_list')
+
+
 class IBANCreateView(IBANBaseCreateView, CreateView):
+    """
+    Create a new IBANAccount instance.
+    """
     pass
 
 
@@ -93,15 +108,3 @@ class IBANUpdateView(PreventManipulationAccessMixin, IANBaseCreateUpdateView, Up
     it's owned by the request.user.
     """
     pass
-
-
-class IBANDeleteView(PreventManipulationAccessMixin, IBANBaseViewConfiguration, DeleteView):
-    """
-    Delete `IBANAccount` View, extends `PreventManipulationAccessMixin`
-    `IANBaseCreateUpdateView` and generic `DeleteView`, a restricted
-    View that prevent not only Anonymous users but also Authorized
-    users who did not create the model instance from performing any
-    operation on the model instance.
-    """
-    template_name = 'ibanaccount_delete.html'
-    success_url = reverse_lazy('iban_list')
