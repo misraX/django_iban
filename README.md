@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/misraX/django_iban.svg?branch=master)](https://travis-ci.org/misraX/django_iban)
+Travis CI stats [![Build Status](https://travis-ci.org/misraX/django_iban.svg?branch=master)](https://travis-ci.org/misraX/django_iban)
 
 ## Installation:
 
@@ -72,24 +72,17 @@ pip install -r requirements/dev.txt
 
 ### Docs:
 
-1- Move to the docs dir:
+[Code Reference](http://django-iban.readthedocs.io/en/latest/py-modindex.html "ReadTheDocs")
 
-`cd docs`
-
-2- Generate the docs:
- 
-`make html`
-
-3- Docs index will be available in `docs/_build/html/index.html`
-
-
-4- Open index.html in any browser to browse the project reference.
 
 ### Tests:
 
 Simply install `dev.txt` requirements and
 `./manage.py test`
 
+### ScreenShots:
+
+`./iban_screenshots`
 
 ### Notes:
 
