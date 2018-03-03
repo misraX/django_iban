@@ -10,11 +10,15 @@ Travis CI stats [![Build Status](https://travis-ci.org/misraX/django_iban.svg?br
 
 `cd iban`
 
-3- Create a python2 virtual enviroment:
+3- Create a python2 virtualenv:
 
-`virtualenv -p /bin/python2 venv`
+`virtualenv venv -p /bin/python2`
 
-4- Activate the new virtuenv:
+or
+
+`virtualenv $("which python2") venv`
+
+4- Activate the new virtualenv:
 
 `source venv/bin/activate`
 
@@ -59,15 +63,15 @@ pip install -r requirements/dev.txt
 
 13- After login Google will redirect you to the home page `/`
 
-14- You can Add a new user account from the top or go to 'localhost:8000/iban/add/'
+14- You can Add a new user account from the top or go to `localhost:8000/iban/add/`.
 
-15- After successfully adding a new user the page will redirect you to the instance page 'localhost:8000/<instance_id>'
+15- After successfully adding a new user the page will redirect you to the instance page `localhost:8000/<instance_id>`
     
 16- Logout from the top right next to Add User IBAN.
 
 17- Login with another Google account.
 
-18 - You will redirect to the home page again '/'.
+18 - You will redirect to the home page again `/`.
 
 19- You will see the instance that you previously created but no actions buttons Update nor Delete will
     be available, it is only allowed for the owner of the instance.    
@@ -75,7 +79,7 @@ pip install -r requirements/dev.txt
 20- Create a new instance using the same method in number 14, it will redirect you to the new instance page same as number 15.
 
 21- Go to the home page `localhoost:8000` or from the left menu `USERS ACCOUNT LIST` you will find your new instance in the table list, 
-    with the actions buttons Update and Delete.
+    with the actions buttons Update and Delete, and the other instances will be available but without update or delete actions.
 
 ### Available project URLs:
 
@@ -121,4 +125,6 @@ Python versions passed the tests:
 
 1. Its important for Google auth to run the server using localhost:8000.
 2. The website is only allowed for logged in administrators...
+3. `apps.iban.auth.mixins.PreventManipulationAccessMixin` is a custom `AccessMixin` prevents manipulation operations.
+4. For a close code reference check [Code Reference](http://django-iban.readthedocs.io/en/latest/py-modindex.html "ReadTheDocs").
  
