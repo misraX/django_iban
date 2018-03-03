@@ -37,7 +37,6 @@ class IANBaseCreateUpdateView(IBANBaseViewConfiguration):
     combination with `LoginRequiredMixin` in IBANBaseCreateView, as
     Update View handles authorization differently.
     """
-    success_url = reverse_lazy('iban_list')
     template_name = 'ibanaccount_form.html'
     form_class = IBANAccountModelForm
 
