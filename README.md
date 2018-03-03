@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/misraX/django_iban.svg?branch=master)](https://travis-ci.org/misraX/django_iban)
+Travis CI stats [![Build Status](https://travis-ci.org/misraX/django_iban.svg?branch=master)](https://travis-ci.org/misraX/django_iban)
 
 ## Installation:
 
