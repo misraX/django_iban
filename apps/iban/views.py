@@ -89,6 +89,7 @@ class IBANDeleteView(PreventManipulationAccessMixin, IBANBaseViewConfiguration, 
     """
     success_url = reverse_lazy('iban_list')
     context_object_name = 'iban_account_item'
+    template_name = 'ibanaccount_delete.html'
 
 
 class IBANCreateView(IBANBaseCreateView, CreateView):

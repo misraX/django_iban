@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+{% block head_title %}{% endblock %}
+{% block content_wrapper %}
+    <div class="col-md-8 col-lg-offset-2">
+        <div class="card">
+            <h4 class="form_title">Are you sure you want to delete [ {{ iban_account_item.first_name }} ]</h4>
+            {% if iban_account_item %}
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-hover table-striped detail_control">
+                        <thead>
+                        <tr>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>IBAN</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ iban_account_item.first_name }}</td>
+                            <td>{{ iban_account_item.last_name }}</td>
+                            <td>{{ iban_account_item.iban }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="error col-md-12">No IBAN account found.</p>
+            {% endif %}
+            {% if request.user == iban_account_item.created_by %}
+                <form class="form_instance" method="post">
+                    {% csrf_token %}
+                    <ul class="form_control nav">
+                        {{ form.as_ul }}
+                        <input type="submit" value="Delete" class="btn btn-danger btn-fill btn-wd">
+                    </ul>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

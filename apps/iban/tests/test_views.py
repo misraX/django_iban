@@ -192,7 +192,7 @@ class IBANDeleteViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
         self.url_kwarg = {'pk': self.iban_account.id}
         self.url = reverse('iban:iban_delete', kwargs=self.url_kwarg)
         self.redirect = '/accounts/login/?next={}'.format(self.url)
-        self.template_name = None
+        self.template_name = 'ibanaccount_delete.html'
 
     def test_login_required_delete_view(self):
         return self.login_required_iban_view()
