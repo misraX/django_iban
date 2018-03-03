@@ -49,7 +49,7 @@ class IABNCreateViewURLTest(TestCase):
         self.url_name = 'iban:iban_create'
         self.view = IBANCreateView
 
-    def tear_url(self):
+    def test_url(self):
         url = reverse(self.url_name)
         self.assertEquals(url, '/iban/add/')
 
@@ -59,6 +59,6 @@ class IABNListViewURLTest(TestCase):
         self.url_name = 'iban_list'
         self.view = IBANListView
 
-    def tear_url(self):
+    def test_url(self):
         url = reverse(self.url_name)
         self.assertEquals(url, '/')

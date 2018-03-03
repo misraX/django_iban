@@ -1,0 +1,18 @@
+language: python
+
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+  - "3.5-dev"
+  - "3.6"
+  - "3.6-dev"
+
+install:
+  - pip install -r requirements/dev.txt
+  - pip install "coverage==4.5.1"
+
+# command to run tests
+script:
+  - ./manage.py test
+  - coverage run --source='.' manage.py test
