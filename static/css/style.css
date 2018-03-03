@@ -17,7 +17,8 @@
 
 .add-iban,
 .wrapper .menu,
-.auth_remember_forget {
+.auth_remember_forget,
+.register li {
     display: flex;
 }
 
@@ -62,7 +63,8 @@
     }
 }
 
-.auth_login .auth_authTitle {
+.auth_login .auth_authTitle,
+.auth_register .auth_authTitle {
     text-align: center;
     line-height: 300%;
 }
@@ -123,15 +125,12 @@ a.btn.btn-lg.auth_btn-google {
     display: block;
 }
 
-.auth_login .auth_loginForm .input-group.i {
-    width: 2em;
+.help-block, ul.errorlist li {
+    color: #b33d3d;
 }
 
-.auth_login .auth_loginForm .help-block {
-    color: red;
-}
-
-.input-group input {
+.input-group input,
+.register input {
     font-size: 1rem;
     line-height: 1.5;
     color: #495057;
@@ -143,15 +142,21 @@ a.btn.btn-lg.auth_btn-google {
 }
 
 ul.nav.providers li a,
-.input-group input {
+.input-group input,
+.register input {
     padding: .5rem 1rem;
 }
 
 .btn.btn-lg.social_providers,
 ul.nav.providers li,
 ul.nav.providers li a,
-.input-group input {
+.input-group input,
+.row.auth_row-sm-offset-3.auth_loginOr p {
     width: 100%;
+}
+
+.row.auth_row-sm-offset-3.auth_loginOr p {
+    text-align: center;
 }
 
 ul.nav.providers li a,
@@ -159,16 +164,37 @@ ul.nav.providers li a,
     display: block;
 }
 
+ul.form_group.nav,
+.register li {
+    flex-direction: column;
+}
+
 .social_providers .socialaccount_provider.google {
     background-color: #c32f10;
 }
 
-.auth_remember_forget {
+.auth_remember_forget,
+.register li,
+.signup .btn-block {
     margin-top: 10px;
+}
+
+.errorlist {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.auth_remember_forget {
     justify-content: space-between;
 }
 
-.input-group {
+.input-group, ul.errorlist li {
     margin-bottom: 10px;
 }
 

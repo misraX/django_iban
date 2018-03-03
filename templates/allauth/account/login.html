@@ -4,10 +4,6 @@
 {% load account socialaccount %}
 {% load static %}
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
-{% block extra_head %}
-    {{ block.super }}
-    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-{% endblock %}
 {% block body %}
 
     {% get_providers as socialaccount_providers %}
@@ -38,6 +34,13 @@
                 <div class="col-xs-12 col-sm-6">
                     <form class="auth_loginForm login" method="POST" action="{% url 'account_login' %}">
                         {% csrf_token %}
+                        {% if form.non_field_errors %}
+                            <div class="non-field-errors">
+                                {% for err in form.non_field_errors %}
+                                    <p class="form-error help-block">{{ err }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                         <div class="input-group">
                             {{ form.login }}
                         </div>
