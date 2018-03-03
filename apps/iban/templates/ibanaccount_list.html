@@ -1,27 +1,67 @@
 {% extends 'main.html' %}
+{% load iban_tmp %}
 {% block head_title %}IBAN List{% endblock %}
-{% block extra_body_content %}
-    <div class="row">
-        {% for iban_account_item in iban_account_list %}
-            <div class="iban_box col-md-6">
-                {% include 'ibanaccount_box.html' %}
+{% block content_wrapper %}
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">IBAN List</h4>
+                <p class="category">List of all active accounts.</p>
             </div>
-        {% empty %}
-            <div class="col-md-12"><p class="error">No IBAN accounts found.</p></div>
-        {% endfor %}
-    </div>
-    <div class="row">
-        {% if is_paginated %}
-            <nav>
-                <ul class="pager">
-                    {% if page_obj.has_next %}
-                        <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
-                    {% endif %}
-                    {% if page_obj.has_previous %}
-                        <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
-        {% endif %}
+            <div class="content table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>IBAN</th>
+                    <th class="country_code">Country Code</th>
+                    <th></th>
+                    </thead>
+                    <tbody>
+                    {% for iban_account_item in iban_account_list %}
+                        <tr>
+                            <td>{{ iban_account_item.id }}</td>
+                            <td>{{ iban_account_item.first_name }}</td>
+                            <td>{{ iban_account_item.last_name }}</td>
+                            <td>{{ iban_account_item.iban }}</td>
+                            {% if iban_account_item.iban|iban_country_code %}
+                                <td class="country_code">{{ iban_account_item.iban|iban_country_code }}</td>
+                            {% endif %}
+                            {% if request.user == iban_account_item.created_by %}
+                                {% with iban_account_item.id as id %}
+                                    <td class="actions">
+                                        <a class="btn btn-primary" href="{% url 'iban:iban_update' id %}">Update</a>
+                                        <a class="btn btn-danger" href="{% url 'iban:iban_delete' id %}">Delete</a>
+                                    </td>
+                                {% endwith %}
+                            {% endif %}
+                        </tr>
+                    {% empty %}
+                        <div class="col-md-12"><p class="error">No IBAN accounts found.</p></div>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
 {% endblock %}
+
+
+
+<div class="row">
+    {% if is_paginated %}
+        <nav>
+            <ul class="pager">
+                {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                {% endif %}
+                {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+</div>

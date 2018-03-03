@@ -9,8 +9,7 @@
     {% get_providers as socialaccount_providers %}
     <div class="container">
         <div class="auth_login">
-            <h3 class="auth_authTitle"><span>Login</span></h3>
-
+            <h3 class="auth_authTitle"><span>Login <span style="color: #007bff">or Sign up</span> with Google </span></h3>
             <div class="row auth_row-sm-offset-3 auth_socialButtons">
                 {% if socialaccount_providers %}
                     <div class="col-xs-4 col-sm-6">
@@ -27,6 +26,7 @@
             <div class="row auth_row-sm-offset-3 auth_loginOr">
                 <div class="col-xs-12 col-sm-6">
                     <hr class="auth_hrOr">
+                    <span class="auth_spanOr">or</span>
                 </div>
             </div>
 
@@ -80,10 +80,9 @@
             <div class="row auth_row-sm-offset-3 auth_loginOr">
                 <div class="col-xs-12 col-sm-6">
                     <hr class="auth_hrOr">
-                    <span class="auth_spanOr">or</span>
                 </div>
             </div>
-            <h3 class="auth_authTitle"><a href="{{ signup_url }}">Sign up</a></h3>
+            <h3 class="auth_authTitle"><a href="{{ signup_url }}">Register</a></h3>
         </div>
 
 
