@@ -2286,12 +2286,6 @@ fieldset[disabled] .btn-neutral.active {
     font-size: 16px;
 }
 
-.card label {
-    font-size: 12px;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-}
-
 .card .title {
     margin: 0;
     color: #333333;
@@ -3410,8 +3404,13 @@ fieldset[disabled] .btn-neutral.active {
     }
 
     .navbar-collapse .nav li > a,
-    .sidebar .nav li > a {
+    .sidebar .nav li > a,
+    .logout {
         padding: 10px 15px;
+    }
+
+    .logout button {
+        width: 100%;
     }
 
     .navbar-collapse .nav,

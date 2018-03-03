@@ -4,12 +4,15 @@
 {% load account socialaccount %}
 {% load static %}
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block css %}{% endblock %}
+
 {% block body %}
 
     {% get_providers as socialaccount_providers %}
     <div class="container">
         <div class="auth_login">
-            <h3 class="auth_authTitle"><span>Login <span style="color: #007bff">or Sign up</span> with Google </span></h3>
+            <h3 class="auth_authTitle"><span>Login <span style="color: #007bff">or Sign up</span> with Google </span>
+            </h3>
             <div class="row auth_row-sm-offset-3 auth_socialButtons">
                 {% if socialaccount_providers %}
                     <div class="col-xs-4 col-sm-6">
@@ -41,7 +44,7 @@
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        <div class="input-group">
+                        <div class="auth_group">
                             {{ form.login }}
                         </div>
                         {% if form.login.errors %}
@@ -49,7 +52,7 @@
                                 <span class="help-block"> {{ error|escape }}</span>
                             {% endfor %}
                         {% endif %}
-                        <div class="input-group">
+                        <div class="auth_group">
                             {{ form.password }}
                         </div>
                         {% if form.password.errors %}

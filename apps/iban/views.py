@@ -52,6 +52,15 @@ class IANBaseCreateUpdateView(IBANBaseViewConfiguration):
         form.instance.created_by = self.request.user
         return super(IANBaseCreateUpdateView, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(IANBaseCreateUpdateView, self).get_context_data(**kwargs)
+        context['title'] = None
+        if self.__class__.__name__ == 'IBANCreateView':
+            context['title'] = 'Create a new user'
+        elif self.__class__.__name__ == 'IBANUpdateView':
+            context['title'] = 'Update a user'
+        return context
+
 
 class IBANBaseCreateView(LoginRequiredMixin, IANBaseCreateUpdateView):
     """
@@ -88,8 +97,8 @@ class IBANDeleteView(PreventManipulationAccessMixin, IBANBaseViewConfiguration, 
     users who did not create the model instance from performing any
     operation on the model instance.
     """
-    template_name = 'ibanaccount_delete.html'
     success_url = reverse_lazy('iban_list')
+    context_object_name = 'iban_account_item'
 
 
 class IBANCreateView(IBANBaseCreateView, CreateView):

@@ -36,7 +36,7 @@ class IBANAccount(AbstractBaseModel):
     objects = ActiveManager.as_manager()
 
     class Meta:
-        ordering = ['created_at']
+        ordering = ['-created_at']
         verbose_name_plural = 'IBAN accounts'
 
     def __str__(self):

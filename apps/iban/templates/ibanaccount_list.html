@@ -1,8 +1,7 @@
 {% extends 'main.html' %}
 {% load iban_tmp %}
-{% block head_title %}IBAN List{% endblock %}
+{% block head_title %}Home{% endblock %}
 {% block content_wrapper %}
-
     <div class="col-md-12">
         <div class="card">
             <div class="header">
@@ -32,8 +31,14 @@
                             {% if request.user == iban_account_item.created_by %}
                                 {% with iban_account_item.id as id %}
                                     <td class="actions">
-                                        <a class="btn btn-primary" href="{% url 'iban:iban_update' id %}">Update</a>
-                                        <a class="btn btn-danger" href="{% url 'iban:iban_delete' id %}">Delete</a>
+                                        <a class="btn btn-primary update"
+                                           href="{% url 'iban:iban_update' id %}">Update</a>
+                                        <form class="delete_action"
+                                              action="{% url 'iban:iban_delete' iban_account_item.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input class="delete btn btn-danger" type="submit" value="Delete"/>
+                                        </form>
+
                                     </td>
                                 {% endwith %}
                             {% endif %}
@@ -43,25 +48,28 @@
                     {% endfor %}
                     </tbody>
                 </table>
-
+                <ul class="pagination col-md-12 pagination-lg">
+                    {% if page_obj.has_previous %}
+                        <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                    {% endif %}
+                    {% for i in page_range %}
+                        {% if page_obj.number == i %}
+                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
+
     </div>
 {% endblock %}
 
-
-
-<div class="row">
-    {% if is_paginated %}
-        <nav>
-            <ul class="pager">
-                {% if page_obj.has_next %}
-                    <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
-                {% endif %}
-                {% if page_obj.has_previous %}
-                    <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-    {% endif %}
-</div>
