@@ -2,28 +2,28 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-from django.core.urlresolvers import reverse, resolve
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory, Client
 
 from ..factories import UserFactory, IBANAccountFactory
+from ..models import IBANAccount
 from ..views import (
     IBANListView, IBANDetailView, IBANDeleteView, IBANUpdateView,
     IBANCreateView
 )
 
 
-class IBANBaseViewTestCaseMixin(object):
+class IBANBaseViewTestCaseMixin(TestCase):
     """
     Base test methods for IBAN Views.
     """
 
-    def test_view_url(self):
-        """
-        Testing url, resolver and view name.
-        """
-        url = resolve(self.url)
-        view = self.view
-        self.assertEquals(url.func.__name__, view.__name__)
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.client = Client()
+        self.user = UserFactory()
+        self.iban_account = IBANAccountFactory()
 
     def iban_view(self):
         """
@@ -42,6 +42,15 @@ class IBANBaseViewTestCaseMixin(object):
         self.assertEquals(response.status_code, 302)
         self.assertRedirects(response, self.redirect)
         # test settings login url
+        self.assertRedirects(response, settings.LOGIN_URL + '?next={}'.format(self.url))
+
+    def post_response(self):
+        response = self.client.post(self.url)
+        return response
+
+    def login_required_view_post(self):
+        response = self.post_response()
+        self.assertEquals(response.status_code, 302)
         self.assertRedirects(response, settings.LOGIN_URL + '?next={}'.format(self.url))
 
     def authorized_update_delete_view(self):
@@ -72,9 +81,7 @@ class IBANBaseViewTestCaseMixin(object):
 
 class IBANListViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
     def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.user = UserFactory()
+        super(IBANListViewTestCaseMixin, self).setUp()
         self.view = IBANListView
         self.url = reverse('iban_list')
         self.redirect = '/accounts/login/?next={}'.format(self.url)
@@ -83,6 +90,9 @@ class IBANListViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
     def test_login_required_iban_list_view(self):
         return self.login_required_iban_view()
 
+    def test_login_required_iban_list_view_post(self):
+        return self.login_required_view_post()
+
     def test_authorized_iban_list_view(self):
         request = self.iban_view()
         response = self.view.as_view(template_engine=self.template_name)(request)
@@ -90,13 +100,18 @@ class IBANListViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.template_name[0], self.template_name)
 
+    def test_authorized_user_post_request(self):
+        request = self.factory.post(self.url)
+        request.user = self.user
+        response = self.view.as_view(template_engine=self.template_name)(request)
+        response.client = self.client
+        # not allowed
+        self.assertEquals(response.status_code, 405)
+
 
 class IBANDetailViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
     def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.user = UserFactory()
-        self.iban_account = IBANAccountFactory()
+        super(IBANDetailViewTestCaseMixin, self).setUp()
         self.view = IBANDetailView
         self.url_kwarg = {'pk': self.iban_account.id}
         self.url = reverse('iban:iban_detail', kwargs=self.url_kwarg)
@@ -106,40 +121,73 @@ class IBANDetailViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
     def test_login_required_iban_detail_view(self):
         return self.login_required_iban_view()
 
+    def test_login_required_iban_detail_view_post(self):
+        return self.login_required_view_post()
+
     def test_authorized_iban_detail_view(self):
         request = self.iban_view()
         response = self.view.as_view(template_engine=self.template_name)(request, **self.url_kwarg)
         response.client = self.client
         self.assertEquals(response.status_code, 200)
 
+    def test_authorized_user_post_request(self):
+        request = self.factory.post(self.url)
+        request.user = self.user
+        response = self.view.as_view(template_engine=self.template_name)(request, **self.url_kwarg)
+        response.client = self.client
+        # not allowed
+        self.assertEquals(response.status_code, 405)
+
 
 class IBANCreateViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
     def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.user = UserFactory()
-        self.iban_account = IBANAccountFactory()
+        super(IBANCreateViewTestCaseMixin, self).setUp()
         self.view = IBANCreateView
         self.url = reverse('iban:iban_create')
         self.redirect = '/accounts/login/?next={}'.format(self.url)
-        self.template_name = 'ibanaccount_form.html'
+        self.template_name = 'ibanaccount_form_create.html'
 
     def test_login_required_iban_create_view(self):
         return self.login_required_iban_view()
+
+    def test_login_required_iban_create_view_post(self):
+        return self.login_required_view_post()
 
     def test_authorized_iban_create_view(self):
         request = self.iban_view()
         response = self.view.as_view(template_engine=self.template_name)(request)
         response.client = self.client
+        # allowed for authorized user
         self.assertEquals(response.status_code, 200)
+
+    def test_authorized_user_post_request(self):
+        request = self.factory.post(self.url)
+        request.user = self.user
+        response = self.view.as_view(template_engine=self.template_name)(request)
+        response.client = self.client
+        self.assertEquals(response.status_code, 200)
+
+    def test_create_with_authorized(self):
+        user1 = User.objects.create_user('testuser', 'test@mail.com', 'testpass')
+        self.client.login(username='testuser', password='testpass')
+        # test with iban already exist
+        res = self.client.post('/iban/add/', {'first_name': 'Randall Munroe', 'last_name': 'randall-munroe',
+                                              'iban': self.iban_account.iban})
+        # iban already exist validation error
+        self.assertFalse(res.context_data['form'].is_valid())
+        # IBAN already exist
+        form_error = [error_code for error_code in res.context_data['form'].errors['iban']]
+        self.assertEquals(form_error, ['IBAN already exist'])
+        res = self.client.post('/iban/add/', {'first_name': 'Randall Munroe', 'last_name': 'randall-munroe',
+                                              'iban': 'RO49 AAAA 1B31 0075 9384 0000'})
+        # saved and redirect to '/iban/<pk>/'
+        iban_account_pk = IBANAccount.objects.get(iban__exact='RO49 AAAA 1B31 0075 9384 0000')
+        self.assertRedirects(res, reverse('iban:iban_detail', kwargs={'pk': iban_account_pk.id}))
 
 
 class IBANDeleteViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
     def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.user = UserFactory()
-        self.iban_account = IBANAccountFactory()
+        super(IBANDeleteViewTestCaseMixin, self).setUp()
         self.view = IBANDeleteView
         self.url_kwarg = {'pk': self.iban_account.id}
         self.url = reverse('iban:iban_delete', kwargs=self.url_kwarg)
@@ -149,30 +197,58 @@ class IBANDeleteViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
     def test_login_required_delete_view(self):
         return self.login_required_iban_view()
 
+    def test_login_required_iban_delete_view_post(self):
+        return self.login_required_view_post()
+
     def test_authorized_iban_delete_view(self):
         return self.authorized_update_delete_view()
 
-    def test_authorized_user_who_created_ibanaccount_iban_view(self):
+    def test_authorized_user_who_created_ibanaccount(self):
         return self.authorized_user_who_created_ibanaccount_iban_view()
+
+    def test_authorized_user_post_request(self):
+        request = self.factory.post(self.url)
+        request.user = self.user
+        response = self.view.as_view(template_engine=self.template_name)(request, **self.url_kwarg)
+        response.client = self.client
+        self.assertEquals(response.status_code, 403)
 
 
 class IBANUpdateViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
     def setUp(self):
-        self.factory = RequestFactory()
-        self.client = Client()
-        self.user = UserFactory()
-        self.iban_account = IBANAccountFactory()
+        super(IBANUpdateViewTestCaseMixin, self).setUp()
         self.view = IBANUpdateView
         self.url_kwarg = {'pk': self.iban_account.id}
         self.url = reverse('iban:iban_update', kwargs=self.url_kwarg)
         self.redirect = '/accounts/login/?next={}'.format(self.url)
-        self.template_name = 'ibanaccount_form.html'
+        self.template_name = 'ibanaccount_form_update.html'
+        self.data = {
+            'first_name': 'first',
+            'second_name': 'second',
+            'iban': self.iban_account.iban
+        }
 
-    def test_login_required_delete_view(self):
+    def test_login_required_iban_update_view(self):
         return self.login_required_iban_view()
 
-    def test_authorized_iban_delete_view(self):
+    def test_authorized_iban_update_view(self):
         return self.authorized_update_delete_view()
 
-    def test_authorized_user_who_created_ibanaccount_iban_view(self):
+    def test_authorized_user_who_created_ibanaccount(self):
         return self.authorized_user_who_created_ibanaccount_iban_view()
+
+    def test_login_required_post_iban_update_view(self):
+        return self.login_required_view_post()
+
+    def test_authorized_user_post_request(self):
+        request = self.factory.post(self.url)
+        request.user = self.user
+        response = self.view.as_view(template_engine=self.template_name)(request, **self.url_kwarg)
+        response.client = self.client
+        self.assertEquals(response.status_code, 403)
+
+    def test_authorized_user_who_created_ibanaccount_with_post(self):
+        request = self.factory.post(self.url, data=self.data)
+        request.user = self.iban_account.created_by
+        response = self.view.as_view(template_engine=self.template_name)(request, **self.url_kwarg)
+        self.assertEquals(response.status_code, 200)
