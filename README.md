@@ -130,6 +130,6 @@ Python versions passed the tests:
 
 ### Third party apps and Credits goes to:
 
-1. [Ligh BootStrap Dashboard] (https://github.com/creativetimofficial/light-bootstrap-dashboard "LightBoatStrapDashBoard").
+1. [Light Board](https://github.com/creativetimofficial/light-bootstrap-dashboard "LightBoard").
 2. [django-allauth](https://github.com/pennersr/django-allauth "allauth") for social integrations.
 3. [django-localflavor](https://github.com/django/django-localflavor "localflavor") for Coutnry specific helpers.
