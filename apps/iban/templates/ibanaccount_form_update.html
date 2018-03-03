@@ -9,7 +9,7 @@
             unless the object.create_by == request.user
             {% endcomment %}
             {% if object.created_by == request.user %}
-                <h4 class="form_title">{% if title %}{{ title }}{% else %}Add or Update{% endif %}</h4>
+            <h4 class="form_title">Update an existence user</h4>
                 <form class="form_instance" method="post" action="{{ action }}">
                     {% csrf_token %}
                     <ul class="form_control nav">

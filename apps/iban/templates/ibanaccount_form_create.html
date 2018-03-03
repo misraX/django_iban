@@ -1,9 +1,9 @@
 {% extends 'main.html' %}
-{% block head_title %}{% endblock %}
+{% block head_title %}Create a new user{% endblock %}
 {% block content_wrapper %}
     <div class="col-md-8 col-lg-offset-2">
         <div class="card">
-            <h4 class="form_title">{% if title %}{{ title }}{% else %}Add or Update{% endif %}</h4>
+            <h4 class="form_title">Create a new user</h4>
             <form class="form_instance" method="post" action="{{ action }}">
                 {% csrf_token %}
                 <ul class="form_control nav">

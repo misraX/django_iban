@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import HttpResponse
 from django.views.generic import (
     ListView, DetailView, DeleteView, UpdateView, CreateView
 )
@@ -90,18 +89,7 @@ class IBANDeleteView(PreventManipulationAccessMixin, IBANBaseViewConfiguration, 
     """
     success_url = reverse_lazy('iban_list')
     context_object_name = 'iban_account_item'
-
-    def get(self, request, *args, **kwargs):
-        """
-        Don't allow GET request, the view will
-        only be called by POST request.
-
-        :param request: `HttpRequest`, GET
-        :param args:
-        :param kwargs:
-        :return: `HttpResponse`, status=405
-        """
-        return HttpResponse(status=405)
+    template_name = 'ibanaccount_delete.html'
 
 
 class IBANCreateView(IBANBaseCreateView, CreateView):
