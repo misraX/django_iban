@@ -178,7 +178,7 @@ class IBANCreateViewTestCaseMixin(IBANBaseViewTestCaseMixin, TestCase):
         # IBAN already exist
         form_error = [error_code for error_code in res.context_data['form'].errors['iban']]
         self.assertEquals(form_error, ['IBAN already exist'])
-        res = self.client.post('/iban/add/', {'first_name': 'Randall Munroe', 'last_name': 'randall-munroe',
+        res = self.client.post('/iban/add/', {'first_name': 'Kamel', 'last_name': 'Moulky',
                                               'iban': 'RO49 AAAA 1B31 0075 9384 0000'})
         # saved and redirect to '/iban/<pk>/'
         iban_account_pk = IBANAccount.objects.get(iban__exact='RO49 AAAA 1B31 0075 9384 0000')
