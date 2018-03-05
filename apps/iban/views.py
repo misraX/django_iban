@@ -33,9 +33,6 @@ class IBANBaseListDetailView(LoginRequiredMixin, IBANBaseViewConfiguration):
 class IANBaseCreateUpdateView(IBANBaseViewConfiguration):
     """
     Base Create and Update Views, extends `IBANBaseViewConfiguration`
-    mainly used explicitly with Update View since Update View and in
-    combination with `LoginRequiredMixin` in IBANBaseCreateView, as
-    Update View handles authorization differently.
     """
     template_name = 'ibanaccount_form.html'
     form_class = IBANAccountModelForm
@@ -79,7 +76,9 @@ class IBANDetailView(IBANBaseListDetailView, DetailView):
     template_name = 'ibanaccount_detail.html'
 
 
-class IBANDeleteView(PreventManipulationAccessMixin, IBANBaseViewConfiguration, DeleteView):
+class IBANDeleteView(PreventManipulationAccessMixin,
+                     IBANBaseViewConfiguration,
+                     DeleteView):
     """
     Delete `IBANAccount` View, extends `PreventManipulationAccessMixin`
     `IANBaseCreateUpdateView` and generic `DeleteView`, a restricted
@@ -99,7 +98,9 @@ class IBANCreateView(IBANBaseCreateView, CreateView):
     template_name = 'ibanaccount_form_create.html'
 
 
-class IBANUpdateView(PreventManipulationAccessMixin, IANBaseCreateUpdateView, UpdateView):
+class IBANUpdateView(PreventManipulationAccessMixin,
+                     IANBaseCreateUpdateView,
+                     UpdateView):
     """
     Update `IBANAccount` View, extends `PreventManipulationAccessMixin`
     `IANBaseCreateUpdateView` and generic `UpdateView`, a restricted
